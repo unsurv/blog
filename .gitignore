@@ -1,3 +1,20 @@
+# Hugo build output
 /public/
-/resources/
+/resources/_gen/
 
+# Hugo build locks
+.hugo_build.lock
+
+# OS noise
+.DS_Store
+Thumbs.db
+
+# Editor droppings
+*~
+*.swp
+.vscode/
+.idea/
+
+# Node stuff
+node_modules/
+EOF
