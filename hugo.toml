@@ -1,0 +1,15 @@
+baseURL = "https://unsurv.org/"
+title = "unsurv blog"
+theme = "PaperMod"
+languageCode = "en-us"
+
+[params]
+  description = "info about ALL the projects"
+  author = "Martin"
+
+[outputs]
+  home = ["HTML", "RSS"]
+
+[taxonomies]
+  tag = "tags"
+  category = "categories"
