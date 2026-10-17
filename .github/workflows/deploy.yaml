@@ -61,14 +61,15 @@ jobs:
         with:
           name: public
           path: ./public
-      - name: rsync to Hetzner webhosting
+      - name: Deploy via SFTP (key auth)
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         run: |
+          sudo apt-get install -y lftp
           mkdir -p ~/.ssh
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
-          ssh-keyscan -p 222 -H "${{ secrets.DEPLOY_HOST }}" >> ~/.ssh/known_hosts
-          rsync -avz --delete \
-            -e "ssh -p 222 -i ~/.ssh/deploy_key" \
-            public/ "${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:public_html/"
+          ssh-keyscan -p 22 -H "${{ secrets.DEPLOY_HOST }}" >> ~/.ssh/known_hosts
+          lftp -u "${{ secrets.DEPLOY_USER }}," \
+            -e "set sftp:connect-program 'ssh -a -x -p 22 -i ~/.ssh/deploy_key -o BatchMode=yes'; mirror --reverse --delete --parallel=8 --verbose public/ /public_html; bye" \
+            sftp://${{ secrets.DEPLOY_HOST }}
