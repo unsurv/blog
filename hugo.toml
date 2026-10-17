@@ -1,11 +1,11 @@
 baseURL = "https://unsurv.org/"
-title = "unsurv blog"
+title = "unsurv"
 theme = "PaperMod"
 languageCode = "en-us"
 
 [params]
   description = "info about ALL the projects"
-  author = "Martin"
+  author = "martin"
 
 [outputs]
   home = ["HTML", "RSS"]
